@@ -1,0 +1,52 @@
+<html>
+    <head>
+        This is an AJAX page<br>
+    </head>
+    <body>
+        <input type="button" id="get_user" value="Get all users"><br>
+        <input type="text" id="id"><br>
+        <input type="text" id="fname"><br>
+        <input type="text" id="lname"><br>
+        <input type="text" id="age"><br>
+        <input type="button" id="create_user" value="Create users"><br>
+        <div id="result"></div>
+        <script type="text/javascript">
+            document.getElementById('create_user').addEventListener('click', function(event) {
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', 'http://localhost:3000/addUser');
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                const user = {
+                    id: document.getElementById('id').value,
+                    fname: document.getElementById('fname').value,
+                    lname: document.getElementById('lname').value,
+                    age: document.getElementById('age').value
+                };
+                xhr.send(JSON.stringify(user));
+                xhr.onreadystatechange = function() {
+                    if(xhr.readyState == 4 && xhr.status == 200) {
+                        alert('OK');
+                    }
+                }
+            });
+            
+            
+            const button =  document.getElementById('get_user');
+            button.addEventListener('click', function(event) {
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', 'http://localhost:3000/getUsers');
+                xhr.send();
+                xhr.onreadystatechange = function() {
+                    if(xhr.readyState == 4 && xhr.status == 200) {
+                        const result = JSON.parse(xhr.responseText);
+                        const pElem = document.createElement('p');
+                        const text = document.createTextNode(result.lname);
+                        pElem.appendChild(text);
+                        const divElem = document.getElementById('result');
+                        divElem.appendChild(pElem);
+                       // alert('OK');
+                    }
+                }
+            }); 
+        </script>
+    </body>
+</html>

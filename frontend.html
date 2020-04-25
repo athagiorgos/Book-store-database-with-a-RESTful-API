@@ -1,0 +1,74 @@
+<html>
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaina+2&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="mystyle.css">
+        <div class="welcomeText">
+            Welcome to our book registration application
+        </div>
+         <script type="text/javascript">
+            function check() {
+                var textfields = document.getElementsByName("textfield");
+                for (let i = 0; i < textfields.length; i++) {
+                    if(textfields[i].value.length == 0) {
+                        alert("Please enter values for the text fields");
+                        return false;
+                    }
+                }
+                var price = document.getElementById('price');
+                if(isNaN(price.value)) {
+                    alert("Please enter a number for the price field");
+                    return false;
+                }
+                if(price.value <= 0) {
+                    alert("Please enter a valid price");
+                    return false;
+                }
+            }
+        </script> 
+    </head>
+    <body>
+        <form name="bookform" action="http://dit.hua.gr" method="get" onsubmit="return check();">
+            <div class="row" >
+                <div class="col-tags">
+                    <label for="author">Author</label>
+                </div>
+                <div class="col-texts"><input type="text" name="textfield" class="textfield" placeholder="Author's name"></div>
+            </div>
+            <div class="row" >
+                <div class="col-tags">
+                    <label for="title">Title</label>
+                </div>
+                <div class="col-texts"><input type="text" name="textfield" class="textfield" placeholder="Book's title"></div>
+            </div>
+            <div class="row" >
+                <div class="col-tags">
+                    <label for="price">Price</label>
+                </div>
+                <div class="col-texts"><input type="text" name="textfield" id="price" class="textfield" placeholder="Price"></div>
+            </div>
+            <div class="row">
+                <div class="col-tags">
+                    <label for="genre">Select genre</label>
+                </div>
+                <div class="col-texts">
+                    <select id="genres">
+                      <option value="science fiction">Science fiction</option>
+                      <option value="satire">Satire</option>
+                      <option value="drama">Drama</option>
+                      <option value="action and adventure">Action and Adventure</option>
+                      <option value="romance">Romance</option>
+                      <option value="mystery">Mystery</option>
+                      <option value="horror">Horror</option>
+                    </select></div>
+            </div>
+            <div class="row">
+                <div class="col-tags">
+                    <input type="submit" value="Submit" name="button" id="button">
+                </div>
+            </div>
+        </form>
+    
+       
+        
+    </body>
+</html>
