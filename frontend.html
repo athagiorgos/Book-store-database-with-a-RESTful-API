@@ -14,11 +14,6 @@
                         return false;
                     }
                 }
-                var price = document.getElementById('price');
-                if(isNaN(price.value)) {
-                    alert("Please enter a number for the price field");
-                    return false;
-                }
                 if(price.value <= 0) {
                     alert("Please enter a valid price");
                     return false;
@@ -27,24 +22,24 @@
         </script>
     </head>
     <body>
-        <form name="bookform" action="http://dit.hua.gr" method="get" onsubmit="return check();">
+        <form name="bookform" onsubmit="return check();">
             <div class="row" >
                 <div class="col-tags">
                     <label for="author">Author</label>
                 </div>
-                <div class="col-texts"><input type="text" name="textfield" class="textfield" placeholder="Author's name"></div>
+                <div class="col-texts"><input type="text" name="author" id="author" class="textfield" placeholder="Author's name"></div>
             </div>
             <div class="row" >
                 <div class="col-tags">
                     <label for="title">Title</label>
                 </div>
-                <div class="col-texts"><input type="text" name="textfield" class="textfield" placeholder="Book's title"></div>
+                <div class="col-texts"><input type="text" name="title" id="title" class="textfield" placeholder="Book's title"></div>
             </div>
             <div class="row" >
                 <div class="col-tags">
                     <label for="price">Price</label>
                 </div>
-                <div class="col-texts"><input type="text" name="textfield" id="price" class="textfield" placeholder="Price"></div>
+                <div class="col-texts"><input type="number" name="price" id="price" class="textfield" placeholder="Price"></div>
             </div>
             <div class="row">
                 <div class="col-tags">
@@ -63,9 +58,28 @@
             </div>
             <div class="row">
                 <div class="col-tags">
-                    <input type="submit" value="Submit" name="button" id="button">
+                    <input type="submit" value="Submit" name="button" id="sub_button">
                 </div>
             </div>
+            <script>
+            document.getElementById('sub_button').addEventListener('click', function(event) {
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', 'http://localhost:3000/addBook');
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                const book = {
+                    author: document.getElementById('author').value,
+                    title: document.getElementById('title').value,
+                    price: document.getElementById('price').value,
+                    genre: document.getElementById('genres').value
+                };
+                xhr.send(JSON.stringify(book));
+                xhr.onreadystatechange = function() {
+                    if(xhr.readyState == 4 && xhr.status == 200) {
+                        alert('OK');
+                    }
+                }
+            });
+            </script>
         </form>
     </body>
 </html>
