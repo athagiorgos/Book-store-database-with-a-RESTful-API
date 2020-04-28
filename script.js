@@ -1,28 +1,3 @@
-//const express = require('express');
-//const app = express();
-//
-//app.get('/', function(req, res) {
-//    res.send('Hello World');
-//});
-//
-//app.listen(3000);
-
-//const express = require('express');
-//const app = express();
-//
-//app.use(express.static('.'));
-//
-//app.get('/', function(req, res) {
-//    const result = {
-//        first: 'Gogos',
-//        last: 'Atha',
-//        age: 20
-//    };
-//    res.send(result);
-//});
-//
-//app.listen(3000);
-
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -39,28 +14,71 @@ const users = require('./users.js');
 //        age: 20
 //}];
 
-let i=0;
+var mysql = require('mysql');
+
+var con = mysql.createConnection({
+  host: "127.0.0.1",
+  port: 3306,
+  user: "root",
+  password: "mastertiger7",
+  database:"users"
+});
+
+con.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
+});
+
+
 app.get('/getUsers',function(req, res) {
-    for(i;i<users.length;i++) {
-        res.send(users[i]);
-    }
+
+    // for(let i=0;i<users.length;i++) {
+    //     res.send(users[i]);
+    // }
+
+    var query = 'select * from user';
+    con.query(query, (err, result, fields) => {
+      if (err) {
+        res.send(err);
+      }
+      //return console.log(result);
+      res.send(result);
+})
 });
 
+// con.query(sql, function (err, result) {
+//    if (err) throw err;
+//    console.log("Result: " + result);
+
+
+//WORKS !!!!!!!
 app.post('/addUser', function(req, res) {
-    console.log(JSON.stringify(req.body));
-    users.push(req.body);   
-    res.send();
+  //  console.log(JSON.stringify(req.body));
+    var query = 'insert into user set ?';
+    var createUser = {
+      id: req.body.id,
+      fname: req.body.fname,
+      lname: req.body.lanme,
+      age:req.body.age
+    }
+    con.query(query, createUser, function(err, response) {
+      if (err) {
+        console.log("Failed to save to database");
+      }
+    //users.push(req.body);
+    res.send("Saved");
+  });
 });
 
-app.get('/getUser/:id', function(req, res) {
-    let result = {message: 'not found'};
-    for(let i = 0; users.length;i++) {
-        if(users[i].id == req.params.id) {
-            result = users[i];
-            break;
-        }
-    }
-    res.sens(result);
-});
+// app.get('/getUser/:id', function(req, res) {
+//     let result = {message: 'not found'};
+//     for(let i = 0; users.length;i++) {
+//         if(users[i].id == req.params.id) {
+//             result = users[i];
+//             break;
+//         }
+//     }
+//     res.sens(result);
+// });
 
 app.listen(3000);

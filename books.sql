@@ -10,3 +10,8 @@ genre VARCHAR( 20 ) NOT NULL ,
 price FLOAT NOT NULL
 
 ) ENGINE = MYISAM ;
+
+select * from books;
+describe books;
+
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'mastertiger7';
