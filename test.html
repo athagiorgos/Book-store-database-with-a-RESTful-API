@@ -38,13 +38,13 @@
                 //xhr.setRequestHeader("Content-Type", "text/xml");
                 xhr.onreadystatechange = function() {
                     if(xhr.readyState == 4 && xhr.status == 200) {
-                        // const result = JSON.parse(xhr.responseText);
-                        // const pElem = document.createElement('p');
-                        // const text = document.createTextNode(result);
-                        // pElem.appendChild(text);
-                        // const divElem = document.getElementById('result');
-                        // divElem.appendChild(pElem);
-                       // alert('OK');
+                        const result = JSON.parse(xhr.responseText);
+                        const pElem = document.createElement('p');
+                        const text = document.createTextNode(result);
+                        pElem.appendChild(text);
+                        const divElem = document.getElementById('result');
+                        divElem.appendChild(pElem);
+                        alert('OK');
 
                        // var data = xhr.responseText;
                        // var jsonResponse = JSON.parse(data);

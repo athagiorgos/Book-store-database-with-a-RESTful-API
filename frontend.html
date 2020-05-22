@@ -23,25 +23,25 @@
     </head>
     <body>
         <form name="bookform" onsubmit="return check();">
-            <div class="row" >
+            <div class="row_form" >
                 <div class="col-tags">
                     <label for="author">Author</label>
                 </div>
                 <div class="col-texts"><input type="text" name="author" id="author" class="textfield" placeholder="Author's name"></div>
             </div>
-            <div class="row" >
+            <div class="row_form" >
                 <div class="col-tags">
                     <label for="title">Title</label>
                 </div>
                 <div class="col-texts"><input type="text" name="title" id="title" class="textfield" placeholder="Book's title"></div>
             </div>
-            <div class="row" >
+            <div class="row_form" >
                 <div class="col-tags">
                     <label for="price">Price</label>
                 </div>
                 <div class="col-texts"><input type="number" name="price" id="price" class="textfield" placeholder="Price"></div>
             </div>
-            <div class="row">
+            <div class="row_form">
                 <div class="col-tags">
                     <label for="genre">Select genre</label>
                 </div>
@@ -54,13 +54,25 @@
                       <option value="romance">Romance</option>
                       <option value="mystery">Mystery</option>
                       <option value="horror">Horror</option>
-                    </select></div>
-            </div>
-            <div class="row">
-                <div class="col-tags">
-                    <input type="submit" value="Submit" name="button" id="sub_button">
+                    </select>
                 </div>
             </div>
+            <div class="row_form">
+                <input type="submit" value="Submit" name="button" class="button" id="sub_button">
+            </div>
+        </form>
+
+        <div class="row" style="margin-left: 200px; text-align: center;">
+            <div class="col-tags">
+                <label for="search">Search for a book</label>
+            </div>
+            <div class="col-texts">
+                <input type="text" name="title" id="search_title" class="textfield" placeholder="ex. Rings">
+            </div>
+            <input type="button" value="Search" name="button" class="button" id="search_button">
+            <div id="result"></div>
+        </div>
+        
             <script>
             document.getElementById('sub_button').addEventListener('click', function(event) {
                 const xhr = new XMLHttpRequest();
@@ -79,7 +91,26 @@
                     }
                 }
             });
+
+            const button =  document.getElementById('search_button');
+            button.addEventListener('click', function(event) {
+                var word = document.getElementById('search_title').value;
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', 'http://localhost:3000/getBooks/'+word+'');
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.send();
+                xhr.onreadystatechange = function() {
+                    if(xhr.readyState == 4 && xhr.status == 200) {
+                        const result = JSON.parse(xhr.responseText);
+                        //console.log(result);
+                        const pElem = document.createElement('p');
+                        const text = document.createTextNode(JSON.stringify(result));
+                        pElem.appendChild(text);
+                        const divElem = document.getElementById('result');
+                        divElem.appendChild(pElem);
+                    }
+                }
+            });
             </script>
-        </form>
     </body>
 </html>

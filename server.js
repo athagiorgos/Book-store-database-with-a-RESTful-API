@@ -11,7 +11,7 @@ var con = mysql.createConnection({
   host: "127.0.0.1",
   port: 3306,
   user: "root",
-  password: "mastertiger7",
+  password: "root",
   database:"book"
 });
 
@@ -33,9 +33,28 @@ app.post('/addBook', function(req, res) {
       if (err) {
         console.log("Failed to save to database");
       }
-    //users.push(req.body);
     res.send("Saved");
   });
+});
+
+// app.get('/getBooks', function(req, res) {
+//   var query = 'select * from books';
+//   con.query(query,[req.params.id], function(err, rows, fields) {
+//     if(!err)
+//     res.send(rows);
+//     else
+//     console.log(err);
+//   })
+// });
+
+app.get('/getBooks/:title', function(req, res) {
+  var query = 'select * from books where title = ?';
+  con.query(query,[req.params.title], function(err, rows, fields) {
+    if(!err)
+    res.send(rows);
+    else
+    console.log(err);
+  })
 });
 
 app.listen(3000);

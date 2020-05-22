@@ -70,15 +70,14 @@ app.post('/addUser', function(req, res) {
   });
 });
 
-// app.get('/getUser/:id', function(req, res) {
-//     let result = {message: 'not found'};
-//     for(let i = 0; users.length;i++) {
-//         if(users[i].id == req.params.id) {
-//             result = users[i];
-//             break;
-//         }
-//     }
-//     res.sens(result);
-// });
+app.get('/getUser/:id', function(req, res) {
+  var query = 'select * from books where title = ?';
+  con.query(query,[req.params.id],(err, rows, fields) => {
+    if(!err)
+    res.send(rows);
+    else
+    console.log(err);
+  })
+});
 
 app.listen(3000);

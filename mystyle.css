@@ -31,30 +31,40 @@ input {
     padding-top: 5px;
 }
 
+.col-texts {
+    width: 80%;
+    text-align: center;
+}
+
+.row_form {
+    padding: 5px;
+    text-align: center;
+}
+
 .row {
     padding: 5px;
+    text-align: center;
+    margin-left: 200px;
+    margin-top: 50px;
 }
-/*
 
-#bookform {
-    padding-left: 15px;
-}
-*/
 form {
-    padding-left: 400px;
+    padding-left: 200px;
 }
 
 #genres {
     margin-top: 10px;
 }
 
-#button {
+.button {
     background-color: aqua;
     color: #fff;
     border-radius: 15px;
     transition: 0.4s ease-out;
+    margin-top: 40px;
+    width: 25%;
 }
 
-#button:hover {
+.button:hover {
     background-color: #0ba7a7;
 }
