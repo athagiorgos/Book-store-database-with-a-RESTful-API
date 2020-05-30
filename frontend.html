@@ -19,6 +19,13 @@
                     return false;
                 }
             }
+            function checkSearch() {
+                var search_title = document.getElementById("search_button");
+                if(search_title.value.length == 0) {
+                    alert("Enter a title to search");
+                    return false;
+                }
+            }
         </script>
     </head>
     <body>
@@ -27,26 +34,26 @@
                 <div class="col-tags">
                     <label for="author">Author</label>
                 </div>
-                <div class="col-texts"><input type="text" name="author" id="author" class="textfield" placeholder="Author's name"></div>
+                <div class="col-texts"><input type="text" name="author" id="author" class="field" placeholder="Author's name"></div>
             </div>
             <div class="row_form" >
                 <div class="col-tags">
                     <label for="title">Title</label>
                 </div>
-                <div class="col-texts"><input type="text" name="title" id="title" class="textfield" placeholder="Book's title"></div>
+                <div class="col-texts"><input type="text" name="title" id="title" class="field" placeholder="Book's title"></div>
             </div>
             <div class="row_form" >
                 <div class="col-tags">
                     <label for="price">Price</label>
                 </div>
-                <div class="col-texts"><input type="number" name="price" id="price" class="textfield" placeholder="Price"></div>
+                <div class="col-texts"><input type="number" name="price" id="price" class="field" placeholder="Price"></div>
             </div>
             <div class="row_form">
                 <div class="col-tags">
                     <label for="genre">Select genre</label>
                 </div>
                 <div class="col-texts">
-                    <select id="genres">
+                    <select id="genres" class="field">
                       <option value="science fiction">Science fiction</option>
                       <option value="satire">Satire</option>
                       <option value="drama">Drama</option>
@@ -67,9 +74,9 @@
                 <label for="search">Search for a book</label>
             </div>
             <div class="col-texts">
-                <input type="text" name="title" id="search_title" class="textfield" placeholder="ex. Rings">
+                <input type="text" name="title" id="search_title" class="field" placeholder="ex. Rings">
             </div>
-            <input type="button" value="Search" name="button" class="button" id="search_button">
+            <input type="button" value="Search" name="button" class="button" id="search_button" onclick="return checkSearch();">
             <div id="result"></div>
         </div>
         
